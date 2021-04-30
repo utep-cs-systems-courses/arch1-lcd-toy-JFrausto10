@@ -36,6 +36,20 @@ void fillRectangle(u_char colMin, u_char rowMin, u_char width, u_char height,
     lcd_writeColor(colorBGR);
   }
 }
+/* creates flagpole 
+ * no paramiters yet
+ */
+void fillFlagPole(){
+  fillRectangle(50,45, 8, 70, COLOR_RED);//draws pole portion
+
+  u_char offset_r=45, offset_c = 20, nHeight = 30; //draws flag portion
+  for(int r = 0; r <= nHeight ; r++){
+    for(int c = 0; c <= r; c++)
+      for(c = r; c <= nHeight; c++){
+	drawPixel(offset_c+c, offset_r+r, COLOR_RED);
+      }
+  }
+}
 
 /** Clear screen (fill with color)
  *  

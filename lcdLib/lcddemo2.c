@@ -18,14 +18,6 @@ main()
 
   drawString5x7(10,20, "This is a flag pole", COLOR_GREEN, COLOR_BLUE);
 
-  fillRectangle(50,45, 8, 70, COLOR_RED);//draws pole portion
-
-  u_char offset_r=45, offset_c = 20, nHeight = 30; //draws flag portion 
-  for(int r = 0; r <= nHeight ; r++){
-    for(int c = 0; c <= r; c++)
-      for(c = r; c <= nHeight; c++){
-	drawPixel(offset_c+c, offset_r+r, COLOR_RED);
-      }
-  }
+  fillFlagPole();
   
 }
