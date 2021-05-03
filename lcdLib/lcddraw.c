@@ -39,17 +39,18 @@ void fillRectangle(u_char colMin, u_char rowMin, u_char width, u_char height,
 /* creates flagpole 
  * no paramiters yet
  */
-void fillFlagPole(){
-  fillRectangle(50,45, 8, 70, COLOR_RED);//draws pole portion
+void fillFlagPole(u_char colMin, u_char rowMin){
+  fillRectangle( colMin+30, rowMin, 8, 70, COLOR_YELLOW);//draws pole portion
 
-  u_char offset_r=45, offset_c = 20, nHeight = 30; //draws flag portion
-  for(int r = 0; r <= nHeight ; r++){
-    for(int c = 0; c <= r; c++)
-      for(c = r; c <= nHeight; c++){
-	drawPixel(offset_c+c, offset_r+r, COLOR_RED);
-      }
+  u_char offset_r= rowMin, offset_c = colMin, tHeight = 30; //draws flag portion
+  for(int r = 0; r <= tHeight ; r++){
+    for(int c = r; c <= tHeight; c++){
+      drawPixel(offset_c+c, offset_r+r, COLOR_RED);
+    }  
   }
 }
+
+
 
 /** Clear screen (fill with color)
  *  
@@ -60,6 +61,37 @@ void clearScreen(u_int colorBGR)
   u_char w = screenWidth;
   u_char h = screenHeight;
   fillRectangle(0, 0, screenWidth, screenHeight, colorBGR);
+}
+
+void drawChar11x16(u_char rcol, u_char rrow, char c, 
+     u_int fgColorBGR, u_int bgColorBGR) 
+{
+  u_char col = 0;
+  u_char row = 0;
+  u_char bit = 0x01;
+  u_char oc = c - 0x20;
+
+  lcd_setArea(rcol, rrow, rcol + 10, rrow + 16); /* relative to requested col/row */
+  while (row < 17) {
+    while (col < 11) {
+      u_int colorBGR = (font_11x16[oc][col] & bit) ? fgColorBGR : bgColorBGR;
+      lcd_writeColor(colorBGR);
+      col++;
+    }
+    col = 0;
+    bit <<= 1;
+    row++;
+  }
+}
+
+void drawString11x16(u_char col, u_char row, char *string,
+		u_int fgColorBGR, u_int bgColorBGR)
+{
+  u_char cols = col;
+  while (*string) {
+    drawChar11x16(cols, row, *string++, fgColorBGR, bgColorBGR);
+    cols += 12;
+  }
 }
 
 /** 5x7 font - this function draws background pixels

@@ -16,8 +16,8 @@ main()
 
   clearScreen(COLOR_BLUE);
 
-  drawString5x7(10,20, "This is a flag pole", COLOR_GREEN, COLOR_BLUE);
+  drawString11x16(10,20, "flag pole", COLOR_GREEN, COLOR_BLUE);
 
-  fillFlagPole();
+  fillFlagPole(40,65);
   
 }
