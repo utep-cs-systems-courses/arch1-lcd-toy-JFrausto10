@@ -11,7 +11,7 @@ all:
 	(cd .. ; make)
 	labDemo.elf
 #additional rules for files
-labDemo.elf: ${COMMON_OBJECTS} labDemo.o wdt_handler.o
+labDemo.elf: ${COMMON_OBJECTS} labDemo.o switches.o led.o p1_interrupt_handler.o wdt_handler.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load: labDemo.elf
