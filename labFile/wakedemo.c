@@ -14,7 +14,7 @@ void wdt_c_handler()
   static int secCount = 0;
 
   secCount ++;
-  if (secCount == 250) {		/* once/sec */
+  if (secCount == 125) {		/* once/sec */
     secCount = 0;
     fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
     redrawScreen = 1;
@@ -36,11 +36,13 @@ void main()
   while (1) {			/* forever */
     if (redrawScreen) {
       redrawScreen = 0;
-      drawString5x7(20,20, "hello", fontFgColor, COLOR_BLUE);
+      drawString11x16(10,10, "hello", fontFgColor, COLOR_RED);
+      fillFlagPole(20,45);
     }
     P1OUT &= ~LED_GREEN;	/* green off */
     or_sr(0x10);		/**< CPU OFF */
-    P1OUT |= LED_GREEN;		/* green on */
+    P1OUT |= LED_GREEN;         /* green on */
+    
   }
 }
 
