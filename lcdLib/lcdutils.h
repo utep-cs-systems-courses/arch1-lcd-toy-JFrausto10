@@ -105,5 +105,6 @@ void lcd_writeColor(u_int colorBGR);
 #define COLOR_DARK_VIOLE	0xd012
 #define COLOR_PURPLE		0xf114
 #define COLOR_MEDIUM_PURPLE	0xdb92
+#define COLOR_RAZZLE_DAZZLE     0xb00b
 
 #endif /* lcdutils_included */
