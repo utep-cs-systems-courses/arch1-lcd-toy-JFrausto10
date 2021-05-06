@@ -9,7 +9,27 @@
 
 
 short redrawScreen = 1;
-u_int fontFgColor = COLOR_GREEN;
+u_int backroundColor = COLOR_BLACK;
+
+void auto_backround_color(char posTracker)
+{
+  switch(posTracker){
+    case 0:
+      backroundColor = COLOR_BLACK;
+      break;
+    case 5:
+      backroundColor = COLOR_RAZZLE_DAZZLE;
+      break;
+    case 10:
+      backroundColor = COLOR_GOLD;
+      break;
+    case 15:
+      backroundColor = COLOR_AQUAMARINE;
+      break;
+    default:
+      break;
+  }
+}
 
 void wdt_c_handler()
 {
@@ -18,9 +38,9 @@ void wdt_c_handler()
   secCount ++;
   if (secCount == 100) {
     secCount = 0;
-    fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
+    //backroundColor = (backroundColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
     redrawScreen = 1;
-    clearScreen(COLOR_BLACK);
+    clearScreen(backroundColor);
   }
 }
 
@@ -42,9 +62,9 @@ void main()
   while (1) {
     if (redrawScreen) {
       redrawScreen = 0;
-      drawString11x16(20,20,"Lab 1",COLOR_GREEN,COLOR_RED);
+      drawString11x16(20,20,"Lab 3",COLOR_GREEN, backroundColor);
       if(switch_state_down1){
-	if(posTracker<=20){
+	if(posTracker<20){
 	  fillFlagPole(20+posTracker,45);
 	  posTracker++;
 	}
@@ -54,6 +74,7 @@ void main()
 	}
       }
     }
+    auto_backround_color(posTracker);
     P1OUT &= ~LED_RED;/* green off */
     or_sr(0x10);/**< CPU OFF */
     P1OUT |= LED_RED;/* green on */
