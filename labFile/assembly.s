@@ -1,3 +1,8 @@
+	.arch msp430g2553
+	.p2align 1,0
+
+
+	
 	.data
 state:
 	.word 0
@@ -30,11 +35,11 @@ autoColorAssembly:
 	cmp #15, &posTracker
 	jz colorChooser
 	
-	jmp jt(0)
-
+	jmp jt
+	
 colorChooser:               
-	move &state, r13        ; state should equal proper case and pushed into r13
-	move jt(r13), r0        ; jump into jt(r13)
+	mov &state, r13        ; state should equal proper case and pushed into r13
+	mov jt(r13), r0        ; jump into jt(r13)
 	
 case0:
 	mov &COLOR_BLACK, r12
