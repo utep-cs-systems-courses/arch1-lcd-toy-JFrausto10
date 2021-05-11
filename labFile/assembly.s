@@ -10,52 +10,52 @@ state:
 	.text
 	
 	.extern posTracker      ;posTracker is type 'char'
-	
+	.extern backroundColor
+	.global autoColorAssembly
 jt:
-	.word default
 	.word case0
+	.word default
+	.word default
+	.word default
+	.word default
 	.word case5
+	.word default
+	.word default
+	.word default
+	.word default
 	.word case10
+	.word default
+	.word default
+	.word default
+	.word default
 	.word case15
+	.word default
+	.word default
+	.word default
+	.word default
 
 autoColorAssembly:
-	add #1, state
-	cmp #0, &posTracker     ; posTracker get compared against all casses
-	jz colorChooser
-	
-	add #1, state
-	cmp #5, &posTracker
-	jz colorChooser
-	
-	add #1, state
-	cmp #10, &posTracker
-	jz colorChooser
-	
-	add #1, state
-	cmp #15, &posTracker
-	jz colorChooser
-	
-	jmp jt
-	
-colorChooser:               
-	mov &state, r13        ; state should equal proper case and pushed into r13
-	mov jt(r13), r0        ; jump into jt(r13)
+        push r14
+	mov r12, r14             ;moving posTracker from r12 to r14
+	add r14, r14
+	mov jt(r14), r0		 ;push jt(r14) into r0
 	
 case0:
-	mov &COLOR_BLACK, r12
+	mov #0x0000, &backroundColor
 	jmp end
 case5:
-	mov &COLOR_RAZZLE_DAZZLE, r12
+	mov #0xb0b0, &backroundColor
 	jmp end	
 case10:
-	mov &COLOR_GOLD, r12
+	mov #0x06bf, &backroundColor
 	jmp end
 case15:
-	mov &COLOR_AQUAMARINE, r12
+	mov #0xd7ef, &backroundColor
 	jmp end
 default:
 	jmp end
 end:
+	pop r14
 	pop r0
 
 	
